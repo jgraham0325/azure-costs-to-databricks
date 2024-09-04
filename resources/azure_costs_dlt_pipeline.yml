@@ -1,0 +1,15 @@
+resources:
+  pipelines:
+    azure_costs_dlt_pipeline:
+      name: azure_costs_dlt_pipeline
+      configuration:
+        "source_path": ${var.source_path}
+        "output_table_name_prefix": ${var.output_table_name_prefix}
+      libraries:
+        - notebook:
+            path: ../src/azure_costs_dlt.py
+      target: ${var.schema}
+      photon: true
+      serverless: true
+      channel: CURRENT
+      catalog: ${var.catalog}

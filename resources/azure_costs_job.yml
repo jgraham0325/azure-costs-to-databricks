@@ -1,0 +1,21 @@
+resources:
+  jobs:
+    azure_costs_job:
+      name: azure_costs_job
+      tasks:
+        - task_key: update_azure_costs_table
+          run_if: ALL_SUCCESS
+          email_notifications: {}
+          notification_settings: {}
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.azure_costs_dlt_pipeline.id}
+          webhook_notifications: {}
+      trigger:
+        file_arrival:
+          url: ${var.source_path}
+        pause_status: UNPAUSED
+      max_concurrent_runs: 1
+      webhook_notifications: {}
+      queue:
+        enabled: true
+      email_notifications: {}
